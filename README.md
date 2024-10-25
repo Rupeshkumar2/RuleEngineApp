@@ -45,11 +45,13 @@ cd Rule-Engine-AST
    ```
 2. Install dependencies:
    ```bash
-   npm install
+   npm init -y
+   npm install axios
+   npm install express mongoose body-parser cors
    ```
 3. Start the server:
    ```bash
-   npm start
+   node server.js
    ```
 
 ### Frontend Setup (React):
@@ -59,7 +61,7 @@ cd Rule-Engine-AST
    ```
 2. Install dependencies:
    ```bash
-   npm install
+   npm install axios
    ```
 3. Start the React application:
    ```bash
