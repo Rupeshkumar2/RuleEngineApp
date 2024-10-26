@@ -1,6 +1,6 @@
 # Rule Engine with Abstract Syntax Tree (AST)
 
-This project is a sophisticated rule engine application designed to dynamically determine user eligibility based on attributes such as age, department, income, and spending. The system employs an Abstract Syntax Tree (AST) for representing conditional rules, allowing for the dynamic creation, combination, and evaluation of these rules.
+This project is a sophisticated rule engine application designed to dynamically determine user eligibility based on attributes such as age, department, income, and spending. The system employs an Abstract Syntax Tree (AST) for representing conditional rules, allowing for dynamic creation, combination, and evaluation of these rules.
 
 ## Table of Contents
 - [Features](#features)
@@ -30,10 +30,11 @@ This project is a sophisticated rule engine application designed to dynamically 
 - **JSON**: A lightweight data format for exchanging data between the client and server, facilitating easy data transmission.
 
 ## Setup & Installation
+
 ### Clone the Repository:
 ```bash
 git clone https://github.com/Rupeshkumar2/RuleEngineApp
-cd rule-engine-ast
+cd RuleEngineApp
 ```
 
 ### Backend Setup (Node.js & Express):
@@ -43,9 +44,7 @@ cd rule-engine-ast
    ```
 2. Install dependencies:
    ```bash
-   npm init -y
-   npm install axios
-   npm install express mongoose body-parser cors
+   npm install axios express mongoose body-parser cors
    ```
 3. Start the server:
    ```bash
@@ -67,89 +66,19 @@ cd rule-engine-ast
    ```
 
 ### MongoDB Setup:
-- Ensure you have MongoDB installed and running.
+- Ensure MongoDB is installed and running.
 - Create a database for the rule engine and update the database connection string in the backend configuration.
-- Below is a suggested schema for MongoDB, which includes collections and their corresponding fields.
 
 ### Database Schema for the Rule Engine Application
 
-#### 1. **Collections**
-
-- **Rules**
-- **Evaluations** (optional)
-
-#### **1. Rules Collection**
-
-This collection stores all the rules created by the users.
-
-**Collection Name:** `rules`
-
-**Schema:**
-
-```
-{
-  "_id": ObjectId,          // Unique identifier for each rule
-  "rule_string": String,   // The rule in string format (e.g., "(age > 30 AND department = 'Sales')")
-  "created_at": Date,      // Timestamp of when the rule was created
-  "updated_at": Date,      // Timestamp of when the rule was last updated
-  "description": String     // Optional field to provide a description of the rule
-}
-```
-
-**Example Document:**
-
-```
-{
-  "_id": ObjectId("615c1e2e1e4f1c001c73bb45"),
-  "rule_string": "(age > 30 AND department = 'Sales') OR (age < 25 AND department = 'Marketing')",
-  "created_at": ISODate("2024-10-25T12:00:00Z"),
-  "updated_at": ISODate("2024-10-25T12:00:00Z"),
-  "description": "Eligibility rule for Sales and Marketing departments."
-}
-```
-
-#### **2. Evaluations Collection (Optional)**
-
-This collection stores the results of rule evaluations against user data. This can help in tracking user evaluations and analytics.
-
-**Collection Name:** `evaluations`
-
-**Schema:**
-
-```
-{
-  "_id": ObjectId,               // Unique identifier for each evaluation
-  "rule_id": ObjectId,           // Reference to the rule being evaluated
-  "user_data": Object,           // The data against which the rule was evaluated
-  "evaluation_result": Boolean,   // Result of the evaluation (true/false)
-  "evaluated_at": Date           // Timestamp of when the evaluation occurred
-}
-```
-
-**Example Document:**
-
-```
-{
-  "_id": ObjectId("615c1e2e1e4f1c001c73bb46"),
-  "rule_id": ObjectId("615c1e2e1e4f1c001c73bb45"),
-  "user_data": {
-    "age": 32,
-    "department": "Sales",
-    "salary": 60000,
-    "experience": 4
-  },
-  "evaluation_result": true,
-  "evaluated_at": ISODate("2024-10-25T12:05:00Z")
-}
-```
-
-### Summary of Schema Design Choices
-
-1. **Rules Collection:** This stores the rules that users input. It captures essential fields like the rule string and timestamps for tracking changes.
-   
-2. **Evaluations Collection:** This is optional but helpful for keeping a history of how rules perform against user data. It allows for better analytics and performance tracking of the rule engine.
-
-3. **Using ObjectId:** The `_id` fields use MongoDB’s `ObjectId` type for unique identification of documents.
+#### Collections:
+1. **Rules Collection**: Stores the rules created by users.
+    - `_id`: Unique identifier for each rule.
+    - `rule_string`: The rule in string format.
+    - `created_at`: Timestamp when the rule was created.
+    - `updated_at`: Timestamp when the rule was last updated.
+    - `description`: Description of the rule (optional).
+2. **Evaluations Collection** (optional): Stores results of rule evaluations against user data.
 
 ## Usage
 ### Creating Rules:
@@ -185,6 +114,7 @@ print(response.json())
 ```
 
 ## API Design
+
 ### Create Rule:
 ```python
 @app.route('/create_rule', methods=['POST'])
@@ -231,49 +161,18 @@ class Node:
             "value": self.value
         }
 ```
+
 ### How to Use the Rule Engine Web Application
 
-#### Step 1: Open the Application
-1. **Launch the Application:**
-   - Open your web browser (Chrome, Firefox, etc.).
-   - Enter the following URL in the address bar: `http://localhost:3000`.
-   - You should see the homepage of the Rule Engine application.
-
-#### Step 2: Submitting a Rule
-1. **Input a Rule:**
-   - In the input box labeled "Enter rule string (e.g., age > 30 AND department = 'Sales')", type in a rule. 
-   - **Example Rule:** 
-     ```
-     (age > 30 AND department = 'Sales') OR (age < 25 AND department = 'Marketing')
-     ```
-
-2. **Submit the Rule:**
-   - Click the **"Submit Rule"** button.
-   - The application will process the rule, and you won’t see any visible confirmation. (You can add a notification or confirmation message in the UI for better user experience if desired.)
-
-#### Step 3: Evaluating Data Against the Rule
-1. **Input User Data:**
-   - You need to fill in the attributes that the rule will evaluate. 
-   - For example:
-     - **Age:** `32`
-     - **Department:** `Sales`
-     - **Salary:** `60000`
-     - **Experience:** `4`
-
-2. **Evaluate the Rule:**
-   - After entering the user attributes, click the **"Evaluate"** button.
-   - The application will evaluate the entered data against the previously submitted rule.
-
-#### Step 4: View the Result
-- After clicking **"Evaluate"**, the result will be displayed below the button.
-- The result will show either:
-  - **Eligible**: This means the entered data satisfies the rule.
-  - **Not Eligible**: This means the entered data does not satisfy the rule.
+1. **Open the Application**: Launch the app at `http://localhost:3000`.
+2. **Submit a Rule**: Enter a rule in the input box and submit.
+3. **Evaluate User Data**: Enter user data and evaluate it against the rule.
+4. **View the Result**: View eligibility based on the evaluation.
 
 ## Test Cases
 1. **Creating Individual Rules**: Validate that rules can be created and their AST representation is correct.
 2. **Combining Rules**: Ensure that the combined AST reflects the logic of the individual rules correctly.
-3. **Evaluating Rules**: Use various scenarios with sample JSON data to test the `evaluate_rule` functionality.
+3. **Evaluating Rules**: Test the `evaluate_rule` functionality using sample JSON data for various scenarios.
 4. **Error Handling**: Validate error handling for invalid rule strings and ensure proper error messages are returned.
 5. **Modification of Rules**: Test functionalities that allow modification of existing rules.
 
@@ -281,3 +180,8 @@ class Node:
 - **User Interface Improvements**: Enhance the UI to allow users to input rules visually.
 - **Support for More Complex Conditions**: Expand the rule syntax to handle more intricate logic.
 - **Integration with Other Data Sources**: Allow the rule engine to evaluate conditions against external data sources.
+
+## Artifacts for Submission
+- **Codebase**: Submit on GitHub (e.g., https://github.com/Rupeshkumar2/RuleEngineApp).
+- **Comprehensive README**: This README includes all necessary build instructions, design choices, and dependencies for setting up and running the application.
+- **Dependencies**: Include MongoDB, Node.js, Express.js, React.js, and any required Python libraries.
