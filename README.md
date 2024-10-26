@@ -181,7 +181,7 @@ class Node:
 - **Support for More Complex Conditions**: Expand the rule syntax to handle more intricate logic.
 - **Integration with Other Data Sources**: Allow the rule engine to evaluate conditions against external data sources.
 
-## Artifacts for Submission
+## Artifacts
 - **Codebase**: Submit on GitHub (e.g., https://github.com/Rupeshkumar2/RuleEngineApp).
 - **Comprehensive README**: This README includes all necessary build instructions, design choices, and dependencies for setting up and running the application.
 - **Dependencies**: Include MongoDB, Node.js, Express.js, React.js, and any required Python libraries.
